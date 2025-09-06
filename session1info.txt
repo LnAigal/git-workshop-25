@@ -1,0 +1,62 @@
+# Git
+
+1.Git
+    About Git 
+    Setting up Git
+
+2.Version control
+    basically if i want to go back to my previous change i can get it back
+
+3.Git Commands
+    git init for initialization
+
+    git status to get the Untracked files,Modified files,Staged files,Branch info
+
+    git add .  adding files from unstaged to staged.
+
+    git commit   basically a checkpoint for the changes you did, u can go back there and can revert the process.
+        Unstaged changes befor commiting. 
+        Staged Changes after commiting.
+        git commit then add message in the first line and then type :wq
+        git commit -m "Type message here"
+        ->>we can see author committed hash date time
+
+    git log we can see our checkpoints 
+        it consists of 
+        git log --oneline
+            only necessary info about commit and commit message 
+
+        i for insert mode press and add comments
+        w for write
+        q for quit 
+        :wq for write and quit
+
+    git ignore
+        create a file in repo save it as .gitignore
+        add file or folder name in .gitignore so that it will be ignored  by git
+
+4.Basic Git Workflow
+    Working Directory->Staging Area->Staged git
+
+
+
+
+5.Git Branches
+    git branch  will show all the branches
+    git branch -M b1    will create a new branch
+    git switch -c b2    add branch and switch to a new branch
+    git checkout  next session
+
+6.Hashes and heads
+    heads we can go back to previous commit     
+    
+7.Stash    
+    git stash is like a stack we can add multiple files to stage changes
+
+8.Merge
+    if i want to merge b2 with b1 
+    go back to b2 , 
+    git merge b1
+
+    
+    
