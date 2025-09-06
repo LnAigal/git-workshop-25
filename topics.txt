@@ -4,5 +4,8 @@
 3.git comands
     git init for initialization
     git status to get the Untracked files,Modified files,Staged files,Branch info
-    git add .  “stage all changes in the current directory and its subdirectories
-    git commit   basically a checkpoint fo thart u can go back there and can revert the process
+    git add .  stage all changes in the current directory and its subdirectories
+    git commit   basically a checkpoint for the changes you did, u can go back there and can revert the process.
+        Unstaged changes befor commiting. 
+        Staged Changes after commiting.
+    git commit -m 
