@@ -54,9 +54,8 @@
     git stash is like a stack we can add multiple files to stage changes
 
 8.Merge
-    if i want to merge b2 with b1 
-    go back to b2 , 
-    git merge b1
+    if i want to merge master with b1 
+    go back to master -> commit -> git merge b1
 
     
     
