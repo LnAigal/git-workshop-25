@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Git & GitHub Guide</title>
+  <style>
+    :root{
+      --bg: #0b0c10;
+      --panel: #111318;
+      --muted: #c5c6c7;
+      --text: #e8e8ea;
+      --accent: #7aa2f7;
+      --accent-2:#34d399;
+      --border: #1f2430;
+      --code-bg:#0f1115;
+      --chip:#1a1f2b;
+    }
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:#f7f8fb; --panel:#ffffff; --muted:#4b5563; --text:#101827; 
+        --accent:#2457e0; --accent-2:#059669; --border:#e5e7eb; --code-bg:#0f172a; --chip:#eef2ff;
+      }
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; margin:0; font-family: ui-sans-serif, system-ui, Segoe UI, Roboto, Arial; background: var(--bg); color: var(--text); display:grid; grid-template-columns:280px 1fr; gap:20px; }
+    
+    /* Sidebar */
+    nav{ position:sticky; top:0; height:100dvh; overflow:auto; padding:24px 16px; background:var(--panel); border-right:1px solid var(--border); }
+    .logo{ font-weight:800; font-size:1.25rem; display:flex; align-items:center; gap:10px; }
+    .logo .dot{ width:10px; height:10px; border-radius:999px; background: var(--accent); }
+    #menu-toggle{ margin-left:auto; background:none; border:none; cursor:pointer; color:var(--text); font-size:1.5rem; }
+    .toc{ margin-top:18px; display:grid; gap:10px; }
+    .toc a{ display:block; padding:10px 12px; border-radius:12px; text-decoration:none; color:var(--text); border:1px solid var(--border); background:var(--panel);}
+    .toc a:hover{ border-color: var(--accent); }
+
+    /* Main */
+    main{ padding:36px 24px; }
+    header.hero{ display:flex; flex-direction:column; align-items:center; text-align:center; margin-bottom:30px; }
+    .title{ font-size: clamp(1.6rem, 1.2rem + 2vw, 2.4rem); margin:0; }
+    .subtitle{ color:var(--muted); margin:8px 0 0; max-width:60ch; }
+    .pill{ display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border:1px solid var(--border); border-radius:999px; background: var(--chip); color: var(--muted); font-size:.9rem; }
+    section.card{ background:var(--panel); border:1px solid var(--border); border-radius:18px; padding:18px 18px 8px; margin-bottom:20px; }
+    section.card h2{ margin:6px 4px 0; font-size:1.25rem; }
+    section.card p{ color:var(--muted); }
+    details.accordion{ border:1px solid var(--border); border-radius:14px; padding:12px; background:var(--panel); }
+    details.accordion + details.accordion{ margin-top:10px; }
+    details.accordion summary{ cursor:pointer; list-style:none; display:flex; align-items:center; gap:10px; }
+    details.accordion summary::-webkit-details-marker{ display:none; }
+    .tag{ font-size:.75rem; background: var(--chip); border:1px solid var(--border); padding:4px 8px; border-radius:999px; color:var(--muted); }
+    pre{ background: var(--code-bg); color:#d1d5db; padding:14px; border-radius:14px; overflow:auto; border:1px solid color-mix(in srgb, var(--panel) 75%, #000 25%); }
+    code{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size:.95rem; }
+    .kbd{ display:inline-block; padding:.2rem .45rem; border-radius:6px; border:1px solid var(--border); background:var(--chip); font-family:inherit; }
+    .note{ background:linear-gradient(180deg, color-mix(in srgb, var(--accent-2) 6%, var(--panel)), var(--panel)); border: 1px dashed color-mix(in srgb, var(--accent-2) 40%, var(--border)); color: color-mix(in srgb, var(--text) 90%, var(--muted)); padding:12px; border-radius:12px; }
+    
+    /* Workflow */
+    .flow{ display:flex; align-items:center; justify-content:space-between; gap:15px; flex-wrap:wrap; padding:16px; border-radius:16px; border:1px dashed var(--border); background: linear-gradient(180deg, color-mix(in srgb, var(--panel) 92%, #000 8%), var(--panel)); }
+    .flow .step{ padding:14px 18px; border-radius:16px; background: var(--chip); border:1px solid var(--border); min-width:180px; text-align:center; font-weight:500; box-shadow: 0 4px 8px rgba(0,0,0,0.2); transition: transform 0.2s; }
+    .flow .step:hover{ transform: translateY(-4px); }
+    .flow .arrow{ font-size:24px; opacity:0.6; }
+
+    footer{ margin-top:30px; color:var(--muted); font-size:.9rem; text-align:center; }
+
+    @media (max-width: 900px){ body{ grid-template-columns:1fr; } nav{ position:relative; height:auto; } }
+  </style>
+</head>
+<body>
+  <!-- Sidebar / TOC -->
+  <nav>
+    <div class="logo">
+      <span class="dot"></span> Git & GitHub Guide
+      <button id="menu-toggle">⋮</button>
+    </div>
+    <div class="toc" id="toc-menu">
+      <a href="#git">1. Git</a>
+      <a href="#version-control">2. Version Control</a>
+      <a href="#commands">3. Git Commands</a>
+      <a href="#workflow">4. Basic Workflow</a>
+      <a href="#branches">5. Git Branches</a>
+      <a href="#hashes-heads">6. Hashes & Heads</a>
+      <a href="#stash">7. Stash</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main>
+    <header class="hero">
+      <div>
+        <h1 class="title">Git & GitHub Guide</h1>
+        <p class="subtitle">A complete reference for Git essentials including branches, stash, and workflow.</p>
+      </div>
+      <span class="pill">💡 Tip: click any code block to copy</span>
+    </header>
+
+    <!-- 1. Git -->
+    <section id="git" class="card">
+      <h2>1) Git</h2>
+      <p><strong>About Git</strong><br>Git is a distributed version control system that tracks changes in your files and lets you move between versions safely.</p>
+      <p><strong>Setting up Git</strong></p>
+      <pre><code>git --version
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"</code></pre>
+    </section>
+
+    <!-- 2. Version Control -->
+    <section id="version-control" class="card">
+      <h2>2) Version Control</h2>
+      <p>You can <em>go back</em> to previous project states and recover earlier changes.</p>
+      <div class="note">
+        Each commit is a <strong>checkpoint</strong> you can return to later.
+      </div>
+    </section>
+
+    <!-- 3. Git Commands -->
+    <section id="commands" class="card">
+      <h2>3) Git Commands</h2>
+      <details class="accordion" open>
+        <summary><span class="tag">init</span> Initialize repository</summary>
+        <pre><code>git init</code></pre>
+      </details>
+      <details class="accordion">
+        <summary><span class="tag">status</span> See changes</summary>
+        <pre><code>git status</code></pre>
+      </details>
+      <details class="accordion">
+        <summary><span class="tag">add</span> Stage files</summary>
+        <pre><code>git add .</code></pre>
+      </details>
+      <details class="accordion">
+        <summary><span class="tag">commit</span> Commit changes</summary>
+        <pre><code>git commit -m "Your message here"</code></pre>
+      </details>
+      <details class="accordion">
+        <summary><span class="tag">log</span> See commits</summary>
+        <pre><code>git log --oneline</code></pre>
+      </details>
+      <details class="accordion">
+        <summary><span class="tag">ignore</span> Ignore files</summary>
+        <pre><code>.gitignore</code></pre>
+      </details>
+    </section>
+
+    <!-- 4. Basic Workflow -->
+    <section id="workflow" class="card">
+      <h2>4) Basic Git Workflow</h2>
+      <div class="flow">
+        <div class="step"><strong>Working Directory</strong><br><small>Edit files</small></div>
+        <div class="arrow">⟶</div>
+        <div class="step"><strong>Staging Area</strong><br><small>git add</small></div>
+        <div class="arrow">⟶</div>
+        <div class="step"><strong>Repository</strong><br><small>git commit</small></div>
+      </div>
+      <pre><code># Example workflow
+git add .
+git commit -m "message"</code></pre>
+      <div class="note">Each commit acts as a checkpoint. You can return to any checkpoint later if needed.</div>
+    </section>
+
+    <!-- 5. Git Branches -->
+    <section id="branches" class="card">
+      <h2>5) Git Branches</h2>
+      <pre><code>git branch         # list branches
+git branch -M b1    # create new branch
+git switch -c b2    # create & switch to branch
+git checkout        # switch branch</code></pre>
+    </section>
+
+    <!-- 6. Hashes & Heads -->
+    <section id="hashes-heads" class="card">
+      <h2>6) Hashes & Heads</h2>
+      <p>Heads allow you to go back to previous commits easily using commit hashes.</p>
+    </section>
+
+    <!-- 7. Stash -->
+    <section id="stash" class="card">
+      <h2>7) Stash</h2>
+      <pre><code>git stash         # save staged changes to stack
+git stash list    # view stashed changes
+git stash apply   # apply latest stash</code></pre>
+      <p>Stash acts like a stack: you can save multiple changes and reapply them later.</p>
+    </section>
+
+    <footer>
+      Made with ❤ for quick learning. You can save this page as <span class="kbd">.html</span> and open it anywhere.
+    </footer>
+  </main>
+
+  <script>
+    // Copy code blocks
+    document.querySelectorAll('pre').forEach(pre => {
+      pre.style.cursor = 'copy';
+      pre.addEventListener('click', async () => {
+        try{ await navigator.clipboard.writeText(pre.innerText); flash(pre); } catch(e){}
+      });
+    });
+    function flash(el){ const old = el.style.boxShadow; el.style.boxShadow = '0 0 0 3px var(--accent) inset'; setTimeout(()=> el.style.boxShadow=old,600); }
+
+    // TOC toggle for three-dot menu
+    const toggleBtn = document.getElementById('menu-toggle');
+    const tocMenu = document.getElementById('toc-menu');
+    toggleBtn.addEventListener('click', ()=>{ tocMenu.style.display = tocMenu.style.display==='none'?'grid':'none'; });
+    if(window.innerWidth<=900){ tocMenu.style.display='none'; }
+  </script>
+</body>
+</html>
